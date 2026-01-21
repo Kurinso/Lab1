@@ -1,25 +1,516 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36429.23 d17.14
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab1", "Lab1\Lab1.csproj", "{9F534F03-9239-4EE3-8656-D5F9BEAD4959}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9F534F03-9239-4EE3-8656-D5F9BEAD4959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F534F03-9239-4EE3-8656-D5F9BEAD4959}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F534F03-9239-4EE3-8656-D5F9BEAD4959}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F534F03-9239-4EE3-8656-D5F9BEAD4959}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {613E3631-836E-4D4F-B43E-7476A7C56D6E}
-	EndGlobalSection
-EndGlobal
+using System;
+
+class AllTasksSolver
+{
+    // 1. Сумма двух последних цифр числа
+    public int sumLastNums(int x)
+    {
+        x = Math.Abs(x); 
+        if (x < 10) return 0; 
+
+        int lastDigit = x % 10;
+        int secondLastDigit = (x / 10) % 10;
+        return lastDigit + secondLastDigit;
+    }
+
+    // 2. Проверка положительного числа
+    public bool isPositive(int x)
+    {
+        return x > 0;
+    }
+
+    // 3. Проверка на заглавную букву
+    public bool isUpperCase(char x)
+    {
+        return x >= 'A' && x <= 'Z';
+    }
+
+    // 4. Проверка делимости
+    public bool isDivisor(int a, int b)
+    {
+        return (a != 0 && b % a == 0) || (b != 0 && a % b == 0);
+    }
+
+    // 5. Сумма последних цифр двух чисел
+    public int lastNumSum(int a, int b)
+    {
+        int lastA = Math.Abs(a) % 10;
+        int lastB = Math.Abs(b) % 10;
+        return lastA + lastB;
+    }
+
+    // 6. Безопасное деление
+    public double safeDiv(int x, int y)
+    {
+        if (y == 0) return 0;
+        return (double)x / y;
+    }
+
+    // 7. Строка сравнения
+    public String makeDecision(int x, int y)
+    {
+        if (x < y)
+            return $"{x}<{y}";
+        else if (x > y)
+            return $"{x}>{y}";
+        else
+            return $"{x}=={y}";
+    }
+
+    // 8. Проверка тройной суммы
+    public bool sum3(int x, int y, int z)
+    {
+        return x + y == z || x + z == y || y + z == x;
+    }
+
+    // 9. Возраст с правильным склонением
+    public String age(int x)
+    {
+        int lastDigit = x % 10;
+        int lastTwoDigits = x % 100;
+
+        // Исключения для 11-14
+        if (lastTwoDigits >= 11 && lastTwoDigits <= 14)
+        {
+            return $"{x} лет";
+        }
+
+        switch (lastDigit)
+        {
+            case 1:
+                return $"{x} год";
+            case 2:
+            case 3:
+            case 4:
+                return $"{x} года";
+            default:
+                return $"{x} лет";
+        }
+    }
+
+    // 10. Вывод дней недели
+    public void printDays(String x)
+    {
+        switch (x.ToLower())
+        {
+            case "понедельник":
+                Console.WriteLine("понедельник");
+                goto case "вторник";
+            case "вторник":
+                Console.WriteLine("вторник");
+                goto case "среда";
+            case "среда":
+                Console.WriteLine("среда");
+                goto case "четверг";
+            case "четверг":
+                Console.WriteLine("четверг");
+                goto case "пятница";
+            case "пятница":
+                Console.WriteLine("пятница");
+                goto case "суббота";
+            case "суббота":
+                Console.WriteLine("суббота");
+                goto case "воскресенье";
+            case "воскресенье":
+                Console.WriteLine("воскресенье");
+                break;
+            default:
+                Console.WriteLine("это не день недели");
+                break;
+        }
+    }
+
+    // 11. Числа наоборот
+    public String reverseListNums(int x)
+    {
+        if (x < 0)
+        {
+            return ""; // Если число отрицательное, возвращаем пустую строку
+        }
+
+        string result = "";
+        for (int i = x; i >= 0; i--)
+        {
+            result += i;
+            if (i > 0)
+            {
+                result += " ";
+            }
+        }
+        return result;
+    }
+
+    // 12. Степень числа
+    public int pow(int x, int y)
+    {
+        if (y < 0) return 0;
+
+        int result = 1;
+        for (int i = 0; i < y; i++)
+        {
+            result *= x;
+        }
+        return result;
+    }
+
+    // 13. Одинаковость цифр
+    public bool equalNum(int x)
+    {
+        if (Math.Abs(x) < 10) return true;
+
+        x = Math.Abs(x);
+        int lastDigit = x % 10;
+        int temp = x / 10;
+
+        while (temp > 0)
+        {
+            int currentDigit = temp % 10;
+            if (currentDigit != lastDigit) return false;
+            temp /= 10;
+        }
+
+        return true;
+    }
+
+    // 14. Левый треугольник
+    public void leftTriangle(int x)
+    {
+        for (int i = 1; i <= x; i++)
+        {
+            for (int j = 0; j < i; j++)
+            {
+                Console.Write('*');
+            }
+            Console.WriteLine();
+        }
+    }
+
+    // 15. Угадайка
+    public void guessGame()
+    {
+        Random random = new Random();
+        int secretNumber = random.Next(0, 10);
+        int attempts = 0;
+        int userGuess = -1;
+
+        Console.WriteLine("Угадайте число от 0 до 9!");
+
+        while (userGuess != secretNumber)
+        {
+            Console.Write("Введите число от 0 до 9: ");
+            string input = Console.ReadLine();
+
+            if (int.TryParse(input, out userGuess))
+            {
+                if (userGuess >= 0 && userGuess <= 9)
+                {
+                    attempts++;
+
+                    if (userGuess == secretNumber)
+                    {
+                        Console.WriteLine("Вы угадали!");
+                        Console.WriteLine($"Вы отгадали число за {attempts} попытку(ки)");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Вы не угадали, попробуйте еще раз!");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка! Число должно быть от 0 до 9.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Ошибка! Введите целое число.");
+            }
+        }
+    }
+
+    // 16. Поиск последнего значения
+    public int findLast(int[] arr, int x)
+    {
+        for (int i = arr.Length - 1; i >= 0; i--)
+        {
+            if (arr[i] == x) return i;
+        }
+        return -1;
+    }
+
+    // 17. Добавление в массив
+    public int[] add(int[] arr, int x, int pos)
+    {
+        if (pos < 0 || pos > arr.Length) return arr;
+
+        int[] result = new int[arr.Length + 1];
+
+        for (int i = 0; i < pos; i++)
+            result[i] = arr[i];
+
+        result[pos] = x;
+
+        for (int i = pos; i < arr.Length; i++)
+            result[i + 1] = arr[i];
+
+        return result;
+    }
+
+    // 18. Реверс массива
+    public void reverse(int[] arr)
+    {
+        for (int i = 0; i < arr.Length / 2; i++)
+        {
+            int temp = arr[i];
+            arr[i] = arr[arr.Length - 1 - i];
+            arr[arr.Length - 1 - i] = temp;
+        }
+    }
+
+    // 19. Объединение массивов
+    public int[] concat(int[] arr1, int[] arr2)
+    {
+        int[] result = new int[arr1.Length + arr2.Length];
+
+        for (int i = 0; i < arr1.Length; i++)
+            result[i] = arr1[i];
+
+        for (int i = 0; i < arr2.Length; i++)
+            result[arr1.Length + i] = arr2[i];
+
+        return result;
+    }
+
+    // 20. Удалить негатив
+    public int[] deleteNegative(int[] arr)
+    {
+        int nonNegativeCount = 0;
+        foreach (int num in arr)
+            if (num >= 0) nonNegativeCount++;
+
+        int[] result = new int[nonNegativeCount];
+        int index = 0;
+
+        foreach (int num in arr)
+            if (num >= 0) result[index++] = num;
+
+        return result;
+    }
+
+    // Вспомогательные методы для безопасного ввода
+    private int GetIntegerInput(string message)
+    {
+        int result;
+        while (true)
+        {
+            Console.Write(message);
+            if (int.TryParse(Console.ReadLine(), out result))
+                return result;
+            Console.WriteLine("Ошибка! Введите целое число.");
+        }
+    }
+
+    private char GetCharInput(string message)
+    {
+        while (true)
+        {
+            Console.Write(message);
+            string input = Console.ReadLine();
+            if (input.Length == 1)
+                return input[0];
+            Console.WriteLine("Ошибка! Введите один символ.");
+        }
+    }
+
+    private string GetStringInput(string message)
+    {
+        Console.Write(message);
+        return Console.ReadLine();
+    }
+
+    private int[] GetArrayInput(string message)
+    {
+        Console.Write(message);
+        int n = GetIntegerInput("Введите количество элементов массива: ");
+
+        if (n <= 0)
+        {
+            Console.WriteLine("Количество элементов должно быть положительным. Создан пустой массив.");
+            return new int[0];
+        }
+
+        int[] arr = new int[n];
+        Console.WriteLine($"Введите {n} элементов массива:");
+
+        for (int i = 0; i < n; i++)
+            arr[i] = GetIntegerInput($"Элемент {i + 1}: ");
+
+        return arr;
+    }
+
+    private void PrintArray(int[] arr, string message = "Массив: ")
+    {
+        Console.Write(message + "[");
+        for (int i = 0; i < arr.Length; i++)
+        {
+            Console.Write(arr[i]);
+            if (i < arr.Length - 1) Console.Write(", ");
+        }
+        Console.WriteLine("]");
+    }
+
+  
+    static void Main(string[] args)
+    {
+        AllTasksSolver solver = new AllTasksSolver();
+ 
+        // Задача 1
+        Console.WriteLine("1. Сумма двух последних цифр числа");
+        int num1 = solver.GetIntegerInput("Введите целое число (минимум 2 цифры): ");
+        Console.WriteLine($"Результат: {solver.sumLastNums(num1)}");
+        Console.WriteLine();
+
+        // Задача 2
+        Console.WriteLine("2. Проверка положительного числа");
+        int num2 = solver.GetIntegerInput("Введите целое число: ");
+        Console.WriteLine($"Число {num2} положительное: {solver.isPositive(num2)}");
+        Console.WriteLine();
+
+        // Задача 3
+        Console.WriteLine("3. Проверка на заглавную букву");
+        char ch = solver.GetCharInput("Введите символ: ");
+        Console.WriteLine($"Символ '{ch}' заглавная буква: {solver.isUpperCase(ch)}");
+        Console.WriteLine();
+
+        // Задача 4
+        Console.WriteLine("4. Проверка делимости чисел");
+        int a1 = solver.GetIntegerInput("Введите первое число: ");
+        int b1 = solver.GetIntegerInput("Введите второе число: ");
+        Console.WriteLine($"Одно из чисел делит другое: {solver.isDivisor(a1, b1)}");
+        Console.WriteLine();
+
+        // Задача 5
+        Console.WriteLine("5. Многократное сложение последних цифр");
+        int result5 = 0;
+        for (int i = 1; i <= 5; i++)
+        {
+            int numA = solver.GetIntegerInput($"Введите число A{i}: ");
+            int numB = solver.GetIntegerInput($"Введите число B{i}: ");
+            int sum = solver.lastNumSum(numA, numB);
+            result5 = solver.lastNumSum(result5, sum);
+            Console.WriteLine($"Промежуточный результат: {result5}");
+        }
+        Console.WriteLine($"Итоговый результат: {result5}");
+        Console.WriteLine();
+
+        // Задача 6
+        Console.WriteLine("6. Безопасное деление");
+        int x6 = solver.GetIntegerInput("Введите делимое: ");
+        int y6 = solver.GetIntegerInput("Введите делитель: ");
+        Console.WriteLine($"Результат деления: {solver.safeDiv(x6, y6)}");
+        Console.WriteLine();
+
+        // Задача 7
+        Console.WriteLine("7. Сравнение двух чисел");
+        int x7 = solver.GetIntegerInput("Введите первое число: ");
+        int y7 = solver.GetIntegerInput("Введите второе число: ");
+        Console.WriteLine($"Результат: {solver.makeDecision(x7, y7)}");
+        Console.WriteLine();
+
+        // Задача 8
+        Console.WriteLine("8. Проверка тройной суммы");
+        int x8 = solver.GetIntegerInput("Введите первое число: ");
+        int y8 = solver.GetIntegerInput("Введите второе число: ");
+        int z8 = solver.GetIntegerInput("Введите третье число: ");
+        Console.WriteLine($"Можно получить третье из суммы двух: {solver.sum3(x8, y8, z8)}");
+        Console.WriteLine();
+
+        // Задача 9
+        Console.WriteLine("9. Возраст с правильным склонением");
+        int age = solver.GetIntegerInput("Введите возраст: ");
+        Console.WriteLine($"Результат: {solver.age(age)}");
+        Console.WriteLine();
+
+        // Задача 10
+        Console.WriteLine("10. Вывод дней недели");
+        string day = solver.GetStringInput("Введите день недели: ");
+        solver.printDays(day);
+        Console.WriteLine();
+
+        // Задача 11
+        Console.WriteLine("11. Числа наоборот");
+        int num11 = solver.GetIntegerInput("Введите целое неотрицательное число: ");
+        Console.WriteLine($"Результат: \"{solver.reverseListNums(num11)}\"");
+        Console.WriteLine();
+
+        // Задача 12
+        Console.WriteLine("12. Степень числа");
+        int baseNum = solver.GetIntegerInput("Введите основание (x): ");
+        int exponent = solver.GetIntegerInput("Введите показатель степени (y, неотрицательный): ");
+        Console.WriteLine($"{baseNum}^{exponent} = {solver.pow(baseNum, exponent)}");
+        Console.WriteLine();
+
+        // Задача 13
+        Console.WriteLine("13. Одинаковость цифр");
+        int num13 = solver.GetIntegerInput("Введите целое число: ");
+        Console.WriteLine($"Все цифры числа {num13} одинаковы: {solver.equalNum(num13)}");
+        Console.WriteLine();
+
+        // Задача 14
+        Console.WriteLine("14. Левый треугольник");
+        int triangleHeight = solver.GetIntegerInput("Введите высоту треугольника: ");
+        Console.WriteLine($"Треугольник высотой {triangleHeight}:");
+        solver.leftTriangle(triangleHeight);
+        Console.WriteLine();
+
+        // Задача 15
+        Console.WriteLine("15. Угадайка");
+        solver.guessGame();
+        Console.WriteLine();
+
+        // Задача 16
+        Console.WriteLine("16. Поиск последнего вхождения в массиве");
+        int[] arr16 = solver.GetArrayInput("");
+        int searchValue = solver.GetIntegerInput("Введите значение для поиска: ");
+        int lastIndex = solver.findLast(arr16, searchValue);
+        Console.WriteLine(lastIndex != -1 ?
+            $"Последнее вхождение на позиции {lastIndex}" :
+            "Элемент не найден");
+        Console.WriteLine();
+
+        // Задача 17
+        Console.WriteLine("17. Добавление элемента в массив");
+        int[] arr17 = solver.GetArrayInput("");
+        int newValue = solver.GetIntegerInput("Введите значение для добавления: ");
+        int position = solver.GetIntegerInput($"Введите позицию (0-{arr17.Length}): ");
+        int[] result17 = solver.add(arr17, newValue, position);
+        solver.PrintArray(result17, "Массив после добавления: ");
+        Console.WriteLine();
+
+        // Задача 18
+        Console.WriteLine("18. Реверс массива");
+        int[] arr18 = solver.GetArrayInput("");
+        solver.PrintArray(arr18, "Исходный массив: ");
+        solver.reverse(arr18);
+        solver.PrintArray(arr18, "Массив после реверса: ");
+        Console.WriteLine();
+
+        // Задача 19
+        Console.WriteLine("19. Объединение массивов");
+        Console.WriteLine("Первый массив:");
+        int[] arr19_1 = solver.GetArrayInput("");
+        Console.WriteLine("Второй массив:");
+        int[] arr19_2 = solver.GetArrayInput("");
+        int[] result19 = solver.concat(arr19_1, arr19_2);
+        solver.PrintArray(result19, "Объединенный массив: ");
+        Console.WriteLine();
+
+        // Задача 20
+        Console.WriteLine("20. Удаление отрицательных элементов");
+        int[] arr20 = solver.GetArrayInput("");
+        solver.PrintArray(arr20, "Исходный массив: ");
+        int[] result20 = solver.deleteNegative(arr20);
+        solver.PrintArray(result20, "Массив без отрицательных: ");
+        Console.WriteLine();
+    }
+}
